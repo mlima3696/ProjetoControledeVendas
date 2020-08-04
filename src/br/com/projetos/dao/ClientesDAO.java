@@ -9,7 +9,10 @@ import br.com.projeto.jdbc.ConnectionFactory;
 import br.com.projeto.model.Clientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,6 +65,48 @@ public class ClientesDAO {
      //MetodoExcluir
     public void excluirCliente(){
    
+    }
+     //MetodoExcluir
+    public List<Clientes> listarCliente(){
+        try {
+            //1 passo criar a lista
+            List<Clientes>lista = new ArrayList<>();
+            
+            //2 passo - criar o sql, organizar e executar
+            String sql = "selet*from tb_clientes";
+            PreparedStatement pst = con.prepareStatement(sql);
+            
+            // Toda a vez que for fazer um select´e preciso o ResultSet
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+                
+                Clientes obj = new Clientes();
+                
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
+                
+                lista.add(obj);
+                
+            }
+            return lista;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+            return null;
+        }
     }
    
     
