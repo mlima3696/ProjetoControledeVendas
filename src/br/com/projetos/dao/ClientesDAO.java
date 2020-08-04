@@ -27,8 +27,8 @@ public class ClientesDAO {
     public void cadastarCliente(Clientes obj){
         try {
             //1 passo - criar o comando sql
-            String sql = "insert into tb_clientes  (nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complento,bairro,cidade,estado) "
-                    + "valeus (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+              String sql = "insert into tb_clientes (nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado) "
+                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             //2 passo - conectar no banco de dados e organizar o comando sql
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, obj.getNome());
