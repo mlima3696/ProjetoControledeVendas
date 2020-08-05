@@ -95,7 +95,7 @@ public class ClientesDAO {
     public void excluirCliente(Clientes obj){
         try {
             // 1 passo comando sql
-            String sql = "delete from tb_clintes where id=?";
+            String sql = "delete from tb_clientes where id=?";
             
             //2 passo - conectar o banco de dados e organizar o comando sql
             PreparedStatement pst = con.prepareStatement(sql);
