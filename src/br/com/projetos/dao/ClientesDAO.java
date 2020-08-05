@@ -59,12 +59,58 @@ public class ClientesDAO {
         }
     }
      //Metodo Alterar
-    public void alterarCliente(){
-   
+    public void alterarCliente(Clientes obj){
+        try {
+            String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?,cep=?,"
+                    + "endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id =?";
+            
+           PreparedStatement pst = con.prepareStatement(sql);
+           
+            pst.setString(1, obj.getNome());
+            pst.setString(2, obj.getRg());
+            pst.setString(3, obj.getCpf());
+            pst.setString(4, obj.getEmail());
+            pst.setString(5, obj.getTelefone());
+            pst.setString(6, obj.getCelular());
+            pst.setString(7, obj.getCep());
+            pst.setString(8, obj.getEndereco());
+            pst.setInt(9, obj.getNumero());
+            pst.setString(10, obj.getComplemento());
+            pst.setString(11, obj.getBairro());
+            pst.setString(12, obj.getCidade());
+            pst.setString(13, obj.getEstado());
+            
+            pst.setInt(14, obj.getId());
+            
+            pst.execute();
+            pst.close();
+            
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+        }
     }
      //MetodoExcluir
-    public void excluirCliente(){
-   
+    public void excluirCliente(Clientes obj){
+        try {
+            // 1 passo comando sql
+            String sql = "delete from tb_clintes where id=?";
+            
+            //2 passo - conectar o banco de dados e organizar o comando sql
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, obj.getId());
+            
+            //3 passo - executar o comando sql
+            pst.execute();
+            pst.close();
+            
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+        }
     }
      //MetodoExcluir
     public List<Clientes> listarCliente(){
