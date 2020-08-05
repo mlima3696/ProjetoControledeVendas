@@ -73,7 +73,7 @@ public class ClientesDAO {
             List<Clientes>lista = new ArrayList<>();
             
             //2 passo - criar o sql, organizar e executar
-            String sql = "selet*from tb_clientes";
+            String sql = "select*from tb_clientes";
             PreparedStatement pst = con.prepareStatement(sql);
             
             // Toda a vez que for fazer um select´e preciso o ResultSet
