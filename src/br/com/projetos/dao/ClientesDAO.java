@@ -115,6 +115,7 @@ public class ClientesDAO {
      //MetodoExcluir
     public List<Clientes> listarCliente(){
         try {
+            
             //1 passo criar a lista
             List<Clientes>lista = new ArrayList<>();
             
@@ -155,21 +156,18 @@ public class ClientesDAO {
         }
     }
    
-    public List<Clientes> buscaClientePorNome(String nome) {
+    public Clientes buscaClientePorNome(String nome) {
         try {
 
-            //1 passo criar a lista
-            List<Clientes> lista = new ArrayList<>();
-
             //2 passo - criar o sql , organizar e executar.
-            String sql = "select * from tb_clientes where nome like ='%nome%'";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, nome);
+            String sql = "select * from tb_clientes where nome =?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
 
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Clientes obj = new Clientes();
+            ResultSet rs = pst.executeQuery();
+            Clientes obj = new Clientes();
+            if (rs.next()) {
+                
 
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
@@ -186,16 +184,16 @@ public class ClientesDAO {
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
 
-                lista.add(obj);
+                //lista.add(obj);
             }
 
-            return lista;
+            return obj;
 
         } catch (SQLException erro) {
-
+            
             JOptionPane.showMessageDialog(null, "Erro :" + erro);
             return null;
         }
-        
+
     }
-    }
+}
