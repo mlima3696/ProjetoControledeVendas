@@ -156,18 +156,21 @@ public class ClientesDAO {
         }
     }
    
-    public Clientes buscaClientePorNome(String nome) {
+    public List<Clientes> buscaClientePorNome(String nome) {
         try {
 
+            //1 passo criar a lista
+            List<Clientes> lista = new ArrayList<>();
+
             //2 passo - criar o sql , organizar e executar.
-            String sql = "select * from tb_clientes where nome =?";
+            String sql = "select * from tb_clientes where nome like ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nome);
 
             ResultSet rs = pst.executeQuery();
-            Clientes obj = new Clientes();
-            if (rs.next()) {
-                
+
+            while (rs.next()) {
+                Clientes obj = new Clientes();
 
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
@@ -184,14 +187,13 @@ public class ClientesDAO {
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
 
-                //lista.add(obj);
+                lista.add(obj);
             }
 
-            return obj;
+            return lista;
 
-        } catch (SQLException erro) {
-            
-            JOptionPane.showMessageDialog(null, "Erro :" + erro);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
             return null;
         }
 
