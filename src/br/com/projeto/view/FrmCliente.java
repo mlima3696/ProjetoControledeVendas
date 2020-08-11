@@ -9,6 +9,7 @@ import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -97,7 +98,7 @@ public class FrmCliente extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         txtpesquisa = new javax.swing.JTextField();
@@ -280,11 +281,11 @@ public class FrmCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton7.setText("Pesquisar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnbuscar.setText("Pesquisar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnbuscarActionPerformed(evt);
             }
         });
 
@@ -313,7 +314,7 @@ public class FrmCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txttelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton7))
+                            .addComponent(btnbuscar))
                         .addContainerGap())
                     .addGroup(paineldeDadosLayout.createSequentialGroup()
                         .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +324,9 @@ public class FrmCliente extends javax.swing.JFrame {
                                 .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paineldeDadosLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(24, 24, 24)
                                 .addComponent(txtcep, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtend, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,9 +337,9 @@ public class FrmCliente extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paineldeDadosLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtcidade, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -382,7 +383,7 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7))
+                    .addComponent(btnbuscar))
                 .addGap(12, 12, 12)
                 .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,7 +544,7 @@ public class FrmCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -661,9 +662,36 @@ public class FrmCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnexcluirActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // Botao buscar cliente por nome
+       
+            String nome = txtnome.getText();
+            Clientes obj = new Clientes();
+            ClientesDAO dao = new ClientesDAO();
+            
+            obj=dao.consultaPorNome(nome);
+            
+            if(obj.getNome() != null){
+            //Exibir os dados do obj nos campos de texto
+            txtcodigo.setText(String.valueOf(obj.getId()));
+
+            txtnome.setText(obj.getNome());
+            txtrg.setText(obj.getRg());
+            txtcpf.setText(obj.getCpf());
+            txtemail.setText(obj.getEmail());
+            txttelefone.setText(obj.getTelefone());
+            txtcelular.setText(obj.getCelular());
+            txtcep.setText(obj.getCep());
+            txtend.setText(obj.getEndereco());
+            txtn.setText(String.valueOf(obj.getNumero()));
+            txtcom.setText(obj.getComplemento());
+            txtbairro.setText(obj.getBairro());
+            txtcidade.setText(obj.getCidade());
+            cbuf.setSelectedItem(obj.getEstado());
+            }else{
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            }
+    }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
         // Botao pesquisar
@@ -771,6 +799,7 @@ public class FrmCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnnovo;
@@ -780,7 +809,6 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

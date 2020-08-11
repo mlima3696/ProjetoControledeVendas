@@ -159,7 +159,7 @@ public class ClientesDAO {
     //Metodo consultaClientePorCPF
     public Clientes consultaPorNome(String nome){
         try {
-            String sql = "select*from tb_clintes where nome=?";
+            String sql = "select * from tb_clientes where nome=?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nome);
             
@@ -167,8 +167,7 @@ public class ClientesDAO {
             
              Clientes obj = new Clientes();
             if(rs.next()){
-               
-
+                
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setRg(rs.getString("rg"));
@@ -193,6 +192,7 @@ public class ClientesDAO {
         }  
     }
    
+    //Metodo buscaclientePorNome - retorna uma lista
     public List<Clientes> buscaClientePorNome(String nome) {
         try {
 
