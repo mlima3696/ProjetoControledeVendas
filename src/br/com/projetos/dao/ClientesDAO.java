@@ -27,7 +27,7 @@ public class ClientesDAO {
     this.con= new ConnectionFactory().getConnection();
     }
     
-    //Metodo cadastrarCliente
+    //Metodo cadastrar Cliente
     public void cadastarCliente(Clientes obj){
         try {
             //1 passo - criar o comando sql
