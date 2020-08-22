@@ -113,7 +113,7 @@ public class ClientesDAO {
             System.out.println(e);
         }
     }
-     //MetodoExcluir
+     //Metodo Listar Clientes
     public List<Clientes> listarCliente(){
         try {
             
