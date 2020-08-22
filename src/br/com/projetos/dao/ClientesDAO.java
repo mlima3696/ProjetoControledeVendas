@@ -92,7 +92,7 @@ public class ClientesDAO {
             System.out.println(e);
         }
     }
-     //MetodoExcluir
+     //Metodo Excluir
     public void excluirCliente(Clientes obj){
         try {
             // 1 passo comando sql

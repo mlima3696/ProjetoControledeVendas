@@ -109,7 +109,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         txtsenha = new javax.swing.JPasswordField();
         jLabel18 = new javax.swing.JLabel();
         txtcargo = new javax.swing.JTextField();
-        cbuf = new javax.swing.JComboBox<>();
+        cbuf1 = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -321,8 +321,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         txtcargo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        cbuf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbuf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbuf1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbuf1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("UF");
@@ -426,7 +426,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addContainerGap(706, Short.MAX_VALUE)
                     .addComponent(jLabel19)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(cbuf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbuf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)))
         );
         paineldeDadosLayout.setVerticalGroup(
@@ -495,7 +495,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addGap(162, 162, 162)
                     .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
-                        .addComponent(cbuf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbuf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(218, Short.MAX_VALUE)))
         );
 
@@ -526,7 +526,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código:", "Nome:", "RG", "CPF", "E-mail", "Senha ", "Cargo", "Nivel de Acesso", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
+                "Código:", "Nome:", "RG", "CPF", "E-mail", "Cargo", "Senha ", "Nivel de Acesso", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
         tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -590,13 +590,13 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addComponent(btnpesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta de Funcionários", jPanel3);
@@ -651,7 +651,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             obj.setComplemento(txtcom.getText());
             obj.setBairro(txtbairro.getText());
             obj.setCidade(txtcidade.getText());
-            obj.setEstado(cbuf.getSelectedItem().toString());
+            obj.setEstado(cbuf1.getSelectedItem().toString());
             
             FuncionariosDAO dao = new FuncionariosDAO();
             dao.cadastarFuncionarios(obj);
@@ -692,7 +692,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         // botao Editar
         
          try {
-            Clientes obj = new Clientes();
+            Funcionarios obj = new Funcionarios();
             
             obj.setNome(txtnome.getText());
             obj.setRg(txtrg.getText());
@@ -710,8 +710,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.alterarCliente(obj);
+            FuncionariosDAO dao = new FuncionariosDAO();
+            dao.alterarFuncionarios(obj);
             
             new Utilitarios().LimpaTela(paineldeDados);
             
@@ -724,12 +724,12 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         // botao Excluir
         
          try {
-            Clientes obj = new Clientes();
+            Funcionarios obj = new Funcionarios();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.excluirCliente(obj);
+            FuncionariosDAO dao = new FuncionariosDAO();
+            dao.excluirFuncionarios(obj);
             
              new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
@@ -901,7 +901,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnpesquisar;
     private javax.swing.JComboBox<String> cbnivel;
-    private javax.swing.JComboBox<String> cbuf;
+    private javax.swing.JComboBox<String> cbuf1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
