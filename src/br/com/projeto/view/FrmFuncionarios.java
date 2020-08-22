@@ -26,18 +26,21 @@ public class FrmFuncionarios extends javax.swing.JFrame {
      */
     // Metodo Listar Tabela
     public void listar(){
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.listarCliente();
+        FuncionariosDAO dao = new FuncionariosDAO();
+        List<Funcionarios> lista = dao.listarFuncionarios();
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         
-        for(Clientes c: lista){
+        for(Funcionarios c: lista){
         dados.addRow(new Object[]{
             c.getId(),
             c.getNome(),
             c.getRg(),
             c.getCpf(),
             c.getEmail(),
+            c.getSenha(),
+            c.getCargo(),
+            c.getNivel_acesso(),
             c.getTelefone(),
             c.getCelular(),
             c.getCep(),
@@ -523,7 +526,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código:", "Nome:", "RG", "CPF", "E-mail", "Cargo", "Senha ", "Nivel de Acesso", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
+                "Código:", "Nome:", "RG", "CPF", "E-mail", "Senha ", "Cargo", "Nivel de Acesso", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
         tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -587,13 +590,13 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addComponent(btnpesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta de Funcionários", jPanel3);
