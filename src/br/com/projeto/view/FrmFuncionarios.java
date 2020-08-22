@@ -6,8 +6,10 @@
 package br.com.projeto.view;
 
 import br.com.projeto.model.Clientes;
+import br.com.projeto.model.Funcionarios;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
+import br.com.projetos.dao.FuncionariosDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -104,7 +106,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         txtsenha = new javax.swing.JPasswordField();
         jLabel18 = new javax.swing.JLabel();
         txtcargo = new javax.swing.JTextField();
-        cbuf1 = new javax.swing.JComboBox<>();
+        cbuf = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -316,8 +318,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         txtcargo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        cbuf1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbuf1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbuf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbuf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("UF");
@@ -421,7 +423,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addContainerGap(706, Short.MAX_VALUE)
                     .addComponent(jLabel19)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(cbuf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbuf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)))
         );
         paineldeDadosLayout.setVerticalGroup(
@@ -469,14 +471,15 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addComponent(txtrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
                         .addComponent(txtcargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbnivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
+                        .addComponent(jLabel13))
+                    .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnnovo)
@@ -489,7 +492,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     .addGap(162, 162, 162)
                     .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
-                        .addComponent(cbuf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbuf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(218, Short.MAX_VALUE)))
         );
 
@@ -628,12 +631,15 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // botao salvar
          try {
-            Clientes obj = new Clientes();
+            Funcionarios obj = new Funcionarios();
             
             obj.setNome(txtnome.getText());
             obj.setRg(txtrg.getText());
             obj.setCpf(txtcpf.getText());
             obj.setEmail(txtemail.getText());
+            obj.setSenha(txtsenha.getText());
+            obj.setCargo(txtcargo.getText());
+            obj.setNivel_acesso(cbnivel.getSelectedItem().toString());
             obj.setTelefone(txttelefone.getText());
             obj.setCelular(txtcelular.getText());
             obj.setCep(txtcep.getText());
@@ -642,10 +648,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             obj.setComplemento(txtcom.getText());
             obj.setBairro(txtbairro.getText());
             obj.setCidade(txtcidade.getText());
-            obj.setEstado(cbnivel.getSelectedItem().toString());
+            obj.setEstado(cbuf.getSelectedItem().toString());
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.cadastarCliente(obj);
+            FuncionariosDAO dao = new FuncionariosDAO();
+            dao.cadastarFuncionarios(obj);
        
             new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
@@ -892,7 +898,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnpesquisar;
     private javax.swing.JComboBox<String> cbnivel;
-    private javax.swing.JComboBox<String> cbuf1;
+    private javax.swing.JComboBox<String> cbuf;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
