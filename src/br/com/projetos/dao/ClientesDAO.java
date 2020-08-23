@@ -157,7 +157,7 @@ public class ClientesDAO {
         }
     }
     
-    //Metodo consultaClientePorCPF
+    //Metodo consultaClientePorNome
     public Clientes consultaPorNome(String nome){
         try {
             String sql = "select * from tb_clientes where nome=?";
