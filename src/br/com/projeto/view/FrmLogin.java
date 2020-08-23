@@ -5,6 +5,9 @@
  */
 package br.com.projeto.view;
 
+import br.com.projetos.dao.FuncionariosDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ACER
@@ -36,7 +39,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnlogin = new javax.swing.JButton();
         btnsair = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Bem Vindo ao Sistema - Autenticação");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -75,6 +78,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btnlogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnlogin.setText("Login");
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
 
         btnsair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnsair.setText("Sair");
@@ -128,6 +136,23 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        // Botao Login
+        try {
+            String email,senha;
+            email=txtemail.getText();
+            senha=txtsenha.getText();
+            
+            FuncionariosDAO dao = new FuncionariosDAO();
+            dao.efetuaLogin(email, senha);
+            this.dispose();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_btnloginActionPerformed
 
     /**
      * @param args the command line arguments
