@@ -8,6 +8,7 @@ package br.com.projetos.dao;
 import br.com.projeto.jdbc.ConnectionFactory;
 import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Funcionarios;
+import br.com.projeto.view.FrmLogin;
 import br.com.projeto.view.FrmMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -279,6 +280,7 @@ public class FuncionariosDAO {
             }else{
             // Dados incorretos
             JOptionPane.showMessageDialog(null, "Dados Incorretos!");
+            new FrmLogin().setVisible(true);
             }
             
         } catch (Exception e) {
