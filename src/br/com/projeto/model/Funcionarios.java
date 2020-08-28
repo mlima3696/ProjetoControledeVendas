@@ -9,7 +9,7 @@ package br.com.projeto.model;
  *
  * @author ACER
  */
-public class Funcionarios extends Clientes{
+public class Funcionarios extends Cliente{
     // Atributos
     private String senha;
     private String cargo;

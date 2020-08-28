@@ -9,7 +9,7 @@ package br.com.projeto.model;
  *
  * @author ACER
  */
-public class Clientes {
+public class Cliente {
     //Atributos
     
     private int id;

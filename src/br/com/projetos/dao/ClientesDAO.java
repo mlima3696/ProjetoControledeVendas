@@ -6,7 +6,7 @@
 package br.com.projetos.dao;
 
 import br.com.projeto.jdbc.ConnectionFactory;
-import br.com.projeto.model.Clientes;
+import br.com.projeto.model.Cliente;
 import br.com.projeto.model.WebServiceCep;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public class ClientesDAO {
     }
     
     //Metodo cadastrar Cliente
-    public void cadastarCliente(Clientes obj){
+    public void cadastarCliente(Cliente obj){
         try {
             //1 passo - criar o comando sql
               String sql = "insert into tb_clientes (nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado) "
@@ -49,7 +49,7 @@ public class ClientesDAO {
             pst.setString(12, obj.getCidade());
             pst.setString(13, obj.getEstado());
             
-            //3 passo - executar o comkando sql
+            //3 passo - executar o comando sql
             pst.execute();
             pst.close();
            
@@ -60,7 +60,7 @@ public class ClientesDAO {
         }
     }
      //Metodo Alterar
-    public void alterarCliente(Clientes obj){
+    public void alterarCliente(Cliente obj){
         try {
             String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?,cep=?,"
                     + "endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id =?";
@@ -93,7 +93,7 @@ public class ClientesDAO {
         }
     }
      //Metodo Excluir
-    public void excluirCliente(Clientes obj){
+    public void excluirCliente(Cliente obj){
         try {
             // 1 passo comando sql
             String sql = "delete from tb_clientes where id=?";
@@ -114,11 +114,11 @@ public class ClientesDAO {
         }
     }
      //Metodo Listar Clientes
-    public List<Clientes> listarCliente(){
+    public List<Cliente> listarCliente(){
         try {
             
             //1 passo criar a lista
-            List<Clientes>lista = new ArrayList<>();
+            List<Cliente>lista = new ArrayList<>();
             
             //2 passo - criar o sql, organizar e executar
             String sql = "select*from tb_clientes";
@@ -129,7 +129,7 @@ public class ClientesDAO {
             
             while(rs.next()){
                 
-                Clientes obj = new Clientes();
+                Cliente obj = new Cliente();
                 
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
@@ -158,7 +158,7 @@ public class ClientesDAO {
     }
     
     //Metodo consultaClientePorNome
-    public Clientes consultaPorNome(String nome){
+    public Cliente consultaPorNome(String nome){
         try {
             String sql = "select * from tb_clientes where nome=?";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -166,7 +166,7 @@ public class ClientesDAO {
             
             ResultSet rs = pst.executeQuery();
             
-             Clientes obj = new Clientes();
+             Cliente obj = new Cliente();
             if(rs.next()){
                 
                 obj.setId(rs.getInt("id"));
@@ -194,11 +194,11 @@ public class ClientesDAO {
     }
    
     //Metodo buscaclientePorNome - retorna uma lista
-    public List<Clientes> buscaClientePorNome(String nome) {
+    public List<Cliente> buscaClientePorNome(String nome) {
         try {
 
             //1 passo criar a lista
-            List<Clientes> lista = new ArrayList<>();
+            List<Cliente> lista = new ArrayList<>();
 
             //2 passo - criar o sql , organizar e executar.
             String sql = "select * from tb_clientes where nome like ?";
@@ -208,7 +208,7 @@ public class ClientesDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                Clientes obj = new Clientes();
+                Cliente obj = new Cliente();
 
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
@@ -238,12 +238,12 @@ public class ClientesDAO {
     
     // Busca CEP
     
-      public Clientes buscaCep(String cep) {
+      public Cliente buscaCep(String cep) {
        
         WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
        
 
-        Clientes obj = new Clientes();
+        Cliente obj = new Cliente();
 
         if (webServiceCep.wasSuccessful()) {
             obj.setEndereco(webServiceCep.getLogradouroFull());

@@ -5,7 +5,7 @@
  */
 package br.com.projeto.view;
 
-import br.com.projeto.model.Clientes;
+import br.com.projeto.model.Cliente;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
 import java.awt.event.KeyEvent;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ACER
  */
-public class FrmCliente extends javax.swing.JFrame {
+public class FrmClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmCliente
@@ -25,11 +25,11 @@ public class FrmCliente extends javax.swing.JFrame {
     // Metodo Listar Tabela
     public void listar(){
         ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.listarCliente();
+        List<Cliente> lista = dao.listarCliente();
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
         
-        for(Clientes c: lista){
+        for(Cliente c: lista){
         dados.addRow(new Object[]{
             c.getId(),
             c.getNome(),
@@ -50,7 +50,7 @@ public class FrmCliente extends javax.swing.JFrame {
     }
     
     
-    public FrmCliente() {
+    public FrmClientes() {
         initComponents();
     }
 
@@ -532,7 +532,7 @@ public class FrmCliente extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // botao salvar
          try {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             
             obj.setNome(txtnome.getText());
             obj.setRg(txtrg.getText());
@@ -587,7 +587,7 @@ public class FrmCliente extends javax.swing.JFrame {
         // botao Editar
         
          try {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             
             obj.setNome(txtnome.getText());
             obj.setRg(txtrg.getText());
@@ -619,7 +619,7 @@ public class FrmCliente extends javax.swing.JFrame {
         // botao Excluir
         
          try {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
@@ -636,7 +636,7 @@ public class FrmCliente extends javax.swing.JFrame {
         // Botao buscar cliente por nome
        
             String nome = txtnome.getText();
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             ClientesDAO dao = new ClientesDAO();
             
             obj=dao.consultaPorNome(nome);
@@ -668,12 +668,12 @@ public class FrmCliente extends javax.swing.JFrame {
         String nome = "%"+ txtpesquisa.getText()+"%";
 
         ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        List<Cliente> lista = dao.buscaClientePorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Cliente c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -698,12 +698,12 @@ public class FrmCliente extends javax.swing.JFrame {
         String nome = "%"+ txtpesquisa.getText()+"%";
 
         ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        List<Cliente> lista = dao.buscaClientePorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Cliente c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -732,7 +732,7 @@ public class FrmCliente extends javax.swing.JFrame {
         //Programacao do keypress
         // Se caso apertou ENTER preencha os dados
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             ClientesDAO dao = new ClientesDAO();
             obj = dao.buscaCep(txtcep.getText());
             
@@ -761,20 +761,21 @@ public class FrmCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCliente().setVisible(true);
+                new FrmClientes().setVisible(true);
             }
         });
     }

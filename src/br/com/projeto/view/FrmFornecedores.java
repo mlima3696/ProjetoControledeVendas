@@ -5,9 +5,11 @@
  */
 package br.com.projeto.view;
 
-import br.com.projeto.model.Clientes;
+import br.com.projeto.model.Cliente;
+import br.com.projeto.model.Fornecedores;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
+import br.com.projetos.dao.FornecedoresDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,17 +26,16 @@ public class FrmFornecedores extends javax.swing.JFrame {
      */
     // Metodo Listar Tabela
     public void listar(){
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.listarCliente();
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores> lista = dao.listarFornecedores();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
         dados.setNumRows(0);
         
-        for(Clientes c: lista){
+        for(Fornecedores c: lista){
         dados.addRow(new Object[]{
             c.getId(),
             c.getNome(),
-            c.getRg(),
-            c.getCpf(),
+            c.getCnpj(),
             c.getEmail(),
             c.getTelefone(),
             c.getCelular(),
@@ -99,7 +100,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         txtpesquisa = new javax.swing.JTextField();
         btnpesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tabelaFornecedores = new javax.swing.JTable();
         btnnovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
@@ -230,7 +231,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         cbuf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setText("CNPJ:");
+        jLabel14.setText("CNPJ");
 
         try {
             txtcnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -383,7 +384,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
             }
         });
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
@@ -391,12 +392,12 @@ public class FrmFornecedores extends javax.swing.JFrame {
                 "Código:", "Nome:", "CNPJ", "E-mail", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
-        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaClientesMouseClicked(evt);
+                tabelaFornecedoresMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabelaClientes);
+        jScrollPane1.setViewportView(tabelaFornecedores);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -427,7 +428,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Consulta de Fornecedores", jPanel3);
+        jTabbedPane1.addTab("Consulta de Clientes", jPanel3);
 
         btnnovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnnovo.setText("+NOVO");
@@ -512,10 +513,10 @@ public class FrmFornecedores extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // botao salvar
          try {
-            Clientes obj = new Clientes();
+            Fornecedores obj = new Fornecedores();
             
             obj.setNome(txtnome.getText());
-            obj.setRg(txtcnpj.getText());
+            obj.setCnpj(txtcnpj.getText());
             obj.setEmail(txtemail.getText());
             obj.setTelefone(txttelefone.getText());
             obj.setCelular(txtcelular.getText());
@@ -527,8 +528,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
             obj.setCidade(txtcidade.getText());
             obj.setEstado(cbuf.getSelectedItem().toString());
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.cadastarCliente(obj);
+            FornecedoresDAO dao = new FornecedoresDAO();
+            dao.cadastarFornecedores(obj);
        
             new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
@@ -543,32 +544,34 @@ public class FrmFornecedores extends javax.swing.JFrame {
         listar();
     }//GEN-LAST:event_formWindowActivated
 
-    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+    private void tabelaFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornecedoresMouseClicked
         // Pega os dados
         jTabbedPane1.setSelectedIndex(0);
-        txtcodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
-        txtnome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
-        txtcnpj.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
-        txtemail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
-        txttelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
-        txtcelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
-        txtcep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
-        txtend.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
-        txtn.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
-        txtcom.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 10).toString());
-        txtbairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
-        txtcidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
-        cbuf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
-    }//GEN-LAST:event_tabelaClientesMouseClicked
+        txtcodigo.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 0).toString());
+        txtnome.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 1).toString());
+        txtcnpj.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 2).toString());
+        //txtcpf.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3).toString());
+        txtemail.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3).toString());
+        txttelefone.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 2).toString());
+        txtcelular.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 5).toString());
+        txtcep.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 6).toString());
+        txtend.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 7).toString());
+        txtn.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 8).toString());
+        txtcom.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 9).toString());
+        txtbairro.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 10).toString());
+        txtcidade.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 11).toString());
+        cbuf.setSelectedItem(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 12).toString());
+    }//GEN-LAST:event_tabelaFornecedoresMouseClicked
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         // botao Editar
         
-         try {
-            Clientes obj = new Clientes();
+        try {
+            Cliente obj = new Cliente();
             
             obj.setNome(txtnome.getText());
-            obj.setRg(txtcnpj.getText());
+            //obj.setRg(txtcnpj.getText());
+            //obj.setCpf(txtcpf.getText());
             obj.setEmail(txtemail.getText());
             obj.setTelefone(txttelefone.getText());
             obj.setCelular(txtcelular.getText());
@@ -596,7 +599,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // botao Excluir
         
          try {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
@@ -613,7 +616,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // Botao buscar cliente por nome
        
             String nome = txtnome.getText();
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             ClientesDAO dao = new ClientesDAO();
             
             obj=dao.consultaPorNome(nome);
@@ -623,7 +626,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
             txtcodigo.setText(String.valueOf(obj.getId()));
 
             txtnome.setText(obj.getNome());
-            txtcnpj.setText(obj.getRg());
+            //txtcnpj.setText(obj.getRg());
+            //txtcpf.setText(obj.getCpf());
             txtemail.setText(obj.getEmail());
             txttelefone.setText(obj.getTelefone());
             txtcelular.setText(obj.getCelular());
@@ -644,17 +648,17 @@ public class FrmFornecedores extends javax.swing.JFrame {
         String nome = "%"+ txtpesquisa.getText()+"%";
 
         ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        List<Cliente> lista = dao.buscaClientePorNome(nome);
 
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Cliente c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
-                c.getRg(),
-                c.getCpf(),
+                //c.getRg(),
+                //c.getCpf(),
                 c.getEmail(),
                 c.getTelefone(),
                 c.getCelular(),
@@ -674,17 +678,17 @@ public class FrmFornecedores extends javax.swing.JFrame {
         String nome = "%"+ txtpesquisa.getText()+"%";
 
         ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        List<Cliente> lista = dao.buscaClientePorNome(nome);
 
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Cliente c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
-                c.getRg(),
-                c.getCpf(),
+                //c.getRg(),
+               // c.getCpf(),
                 c.getEmail(),
                 c.getTelefone(),
                 c.getCelular(),
@@ -708,7 +712,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         //Programacao do keypress
         // Se caso apertou ENTER preencha os dados
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             ClientesDAO dao = new ClientesDAO();
             obj = dao.buscaCep(txtcep.getText());
             
@@ -784,7 +788,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel paineldeDados;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaFornecedores;
     private javax.swing.JTextField txtbairro;
     private javax.swing.JFormattedTextField txtcelular;
     private javax.swing.JFormattedTextField txtcep;

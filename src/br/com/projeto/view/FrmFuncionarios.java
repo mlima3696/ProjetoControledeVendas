@@ -5,7 +5,7 @@
  */
 package br.com.projeto.view;
 
-import br.com.projeto.model.Clientes;
+import br.com.projeto.model.Cliente;
 import br.com.projeto.model.Funcionarios;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
@@ -806,7 +806,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         //Programacao do keypress
         // Se caso apertou ENTER preencha os dados
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            Clientes obj = new Clientes();
+            Cliente obj = new Cliente();
             ClientesDAO dao = new ClientesDAO();
             obj = dao.buscaCep(txtcep.getText());
             

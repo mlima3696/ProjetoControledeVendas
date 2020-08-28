@@ -6,7 +6,7 @@
 package br.com.projetos.dao;
 
 import br.com.projeto.jdbc.ConnectionFactory;
-import br.com.projeto.model.Clientes;
+
 import br.com.projeto.model.Funcionarios;
 import br.com.projeto.view.FrmLogin;
 import br.com.projeto.view.FrmMenu;
@@ -58,7 +58,7 @@ public class FuncionariosDAO {
             pst.setString(16, obj.getEstado());
             
             
-            //3 passo - executar o comkando sql
+            //3 passo - executar o comando sql
             pst.execute();
             pst.close();
            
