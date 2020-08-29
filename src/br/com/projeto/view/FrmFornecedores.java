@@ -550,9 +550,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         txtcodigo.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 0).toString());
         txtnome.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 1).toString());
         txtcnpj.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 2).toString());
-        //txtcpf.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3).toString());
         txtemail.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3).toString());
-        txttelefone.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 2).toString());
+        txttelefone.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 4).toString());
         txtcelular.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 5).toString());
         txtcep.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 6).toString());
         txtend.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 7).toString());
@@ -615,8 +614,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // Botao buscar cliente por nome
        
             String nome = txtnome.getText();
-            Cliente obj = new Cliente();
-            ClientesDAO dao = new ClientesDAO();
+            Fornecedores obj = new Fornecedores();
+            FornecedoresDAO dao = new FornecedoresDAO();
             
             obj=dao.consultaPorNome(nome);
             
@@ -625,8 +624,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
             txtcodigo.setText(String.valueOf(obj.getId()));
 
             txtnome.setText(obj.getNome());
-            //txtcnpj.setText(obj.getRg());
-            //txtcpf.setText(obj.getCpf());
+            txtcnpj.setText(obj.getCnpj());
             txtemail.setText(obj.getEmail());
             txttelefone.setText(obj.getTelefone());
             txtcelular.setText(obj.getCelular());
@@ -638,7 +636,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
             txtcidade.setText(obj.getCidade());
             cbuf.setSelectedItem(obj.getEstado());
             }else{
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            JOptionPane.showMessageDialog(null, "Fornecedor não encontrado!");
             }
     }//GEN-LAST:event_btnbuscarActionPerformed
 
@@ -646,19 +644,18 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // Botao pesquisar
         String nome = "%"+ txtpesquisa.getText()+"%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Cliente> lista = dao.buscaClientePorNome(nome);
+        FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores> lista = dao.buscaFornecedoresPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
         dados.setNumRows(0);
 
-        for (Cliente c : lista) {
+        for (Fornecedores c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
-                //c.getRg(),
-                //c.getCpf(),
                 c.getEmail(),
+                c.getCnpj(),
                 c.getTelefone(),
                 c.getCelular(),
                 c.getCep(),
@@ -676,18 +673,17 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // Vai digitando e já vai mostrando o resultado
         String nome = "%"+ txtpesquisa.getText()+"%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Cliente> lista = dao.buscaClientePorNome(nome);
+        FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores> lista = dao.buscaFornecedoresPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
         dados.setNumRows(0);
 
-        for (Cliente c : lista) {
+        for (Fornecedores c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
-                //c.getRg(),
-               // c.getCpf(),
+                c.getCnpj(),
                 c.getEmail(),
                 c.getTelefone(),
                 c.getCelular(),
