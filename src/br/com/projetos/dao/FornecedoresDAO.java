@@ -158,4 +158,83 @@ public class FornecedoresDAO {
             System.out.println(e);
         }
     }
+    
+      
+        // Metodo ListarFornecedores por nome - retorna uma lista
+    public List<Fornecedores> buscaFornecedoresPorNome(String nome) {
+        try {
+
+            //1 passo criar a lista
+            List<Fornecedores> lista = new ArrayList<>();
+
+            //2 passo - criar o sql , organizar e executar.
+            String sql = "select * from tb_fornecedores where nome like ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Fornecedores obj = new Fornecedores();
+
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setCnpj(rs.getString("cnpj"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
+
+                lista.add(obj);
+            }
+
+            return lista;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fornecedor não encontrado!");
+            return null;
+        }
+    }
+    
+    //Metodo consultaFornecedoresPorNome
+    public Fornecedores consultaPorNome(String nome){
+        try {
+            String sql = "select * from tb_fornecedores where nome=?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+            
+            ResultSet rs = pst.executeQuery();
+            
+             Fornecedores obj = new Fornecedores();
+            if(rs.next()){
+                
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setCnpj(rs.getString("cnpj"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
+            }
+            
+            return obj;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+            return null;
+        }  
+    }
+    
 }
