@@ -567,11 +567,10 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // botao Editar
         
         try {
-            Cliente obj = new Cliente();
+            Fornecedores obj = new Fornecedores();
             
             obj.setNome(txtnome.getText());
-            //obj.setRg(txtcnpj.getText());
-            //obj.setCpf(txtcpf.getText());
+            obj.setCnpj(txtcnpj.getText());
             obj.setEmail(txtemail.getText());
             obj.setTelefone(txttelefone.getText());
             obj.setCelular(txtcelular.getText());
@@ -585,8 +584,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.alterarCliente(obj);
+            FornecedoresDAO dao = new FornecedoresDAO();
+            dao.alterarFornecedores(obj);
             
             new Utilitarios().LimpaTela(paineldeDados);
             
@@ -599,12 +598,12 @@ public class FrmFornecedores extends javax.swing.JFrame {
         // botao Excluir
         
          try {
-            Cliente obj = new Cliente();
+            Fornecedores obj = new Fornecedores();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.excluirCliente(obj);
+            FornecedoresDAO dao = new FornecedoresDAO();
+            dao.excluirFornecedores(obj);
             
              new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
