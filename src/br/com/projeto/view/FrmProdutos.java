@@ -136,9 +136,14 @@ public class FrmProdutos extends javax.swing.JFrame {
         jLabel4.setText("Descrição:");
 
         txtdesc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtdesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdescActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("QTD-Estoque");
+        jLabel6.setText("QTD-Estoque:");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Fornecedores");
@@ -166,31 +171,32 @@ public class FrmProdutos extends javax.swing.JFrame {
                     .addGroup(paineldeDadosLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbfor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbfor, 0, 155, Short.MAX_VALUE)
                         .addGap(538, 538, 538))
                     .addGroup(paineldeDadosLayout.createSequentialGroup()
                         .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paineldeDadosLayout.createSequentialGroup()
-                                .addComponent(txtdesc)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnbuscar)
-                                .addGap(153, 153, 153))
+                                .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(paineldeDadosLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtdesc, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(paineldeDadosLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtpreco)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(paineldeDadosLayout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtestoque, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnbuscar)))
                             .addGroup(paineldeDadosLayout.createSequentialGroup()
-                                .addComponent(txtpreco, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtestoque, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                .addGap(244, 244, 244))))
-                    .addGroup(paineldeDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(688, Short.MAX_VALUE))))
+                                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         paineldeDadosLayout.setVerticalGroup(
             paineldeDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,6 +517,10 @@ public class FrmProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
         }
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void txtdescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdescActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdescActionPerformed
 
     /**
      * @param args the command line arguments
