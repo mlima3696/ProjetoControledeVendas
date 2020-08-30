@@ -14,7 +14,7 @@ public class Produtos  extends Cliente{
     // Atributos 
     private int id;
     private String descricao;
-    private String decimal;
+    private String preco;
     private String qtd_estoque;
     
     // Manupilar objetos
@@ -46,12 +46,12 @@ public class Produtos  extends Cliente{
         this.descricao = descricao;
     }
 
-    public String getDecimal() {
-        return decimal;
+    public String getPreco() {
+        return preco;
     }
 
-    public void setDecimal(String decimal) {
-        this.decimal = decimal;
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 
     public String getQtd_estoque() {
