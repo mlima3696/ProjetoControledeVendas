@@ -7,9 +7,11 @@ package br.com.projeto.view;
 
 import br.com.projeto.model.Cliente;
 import br.com.projeto.model.Fornecedores;
+import br.com.projeto.model.Produtos;
 import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
 import br.com.projetos.dao.FornecedoresDAO;
+import br.com.projetos.dao.ProdutosDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -376,13 +378,19 @@ public class FrmProdutos extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // botao salvar
          try {
-            Cliente obj = new Cliente();
             
-            obj.setNome(txtdesc.getText());
-            obj.setEstado(cbfor.getSelectedItem().toString());
+             Produtos obj = new Produtos();
+             obj.setDescricao(txtdesc.getText());
+             obj.setPreco(Double.parseDouble(txtpreco.getText()));
+             obj.setQtd_estoque(Integer.parseInt(txtestoque.getText()));
+             
+             // Criar um objeto de Fornecedor
+             Fornecedores f = new Fornecedores();
+             f=(Fornecedores)cbfor.getSelectedItem();
+             obj.setFornecedor(f);
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.cadastarCliente(obj);
+            ProdutosDAO dao = new ProdutosDAO();
+            dao.cadastrarProdutos(obj);
        
             new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
