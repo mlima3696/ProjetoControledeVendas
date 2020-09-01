@@ -14,8 +14,8 @@ public class Produtos  extends Cliente{
     // Atributos 
     private int id;
     private String descricao;
-    private String preco;
-    private String qtd_estoque;
+    private Double preco;
+    private int qtd_estoque;
     
     // Manupilar objetos
     private Fornecedores fornecedor;
@@ -46,21 +46,23 @@ public class Produtos  extends Cliente{
         this.descricao = descricao;
     }
 
-    public String getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(String preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
-    public String getQtd_estoque() {
+    public int getQtd_estoque() {
         return qtd_estoque;
     }
 
-    public void setQtd_estoque(String qtd_estoque) {
+    public void setQtd_estoque(int qtd_estoque) {
         this.qtd_estoque = qtd_estoque;
     }
+
+  
     
     
     
