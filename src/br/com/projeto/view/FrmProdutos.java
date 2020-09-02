@@ -399,28 +399,46 @@ public class FrmProdutos extends javax.swing.JFrame {
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
         // Pega os dados
         jTabbedPane1.setSelectedIndex(0);
+        
         txtcodigo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString());
         txtdesc.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString());
-        cbfor.setSelectedItem(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 13).toString());
+        txtpreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString());
+        txtestoque.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3).toString());
+        
+        Fornecedores f = new Fornecedores();
+        FornecedoresDAO dao = new FornecedoresDAO();
+        
+        f=dao.consultaPorNome(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
+        
+        cbfor.removeAllItems();
+        cbfor.getModel().setSelectedItem(f);
+        
     }//GEN-LAST:event_tabelaProdutosMouseClicked
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         // botao Editar
         
          try {
-            Cliente obj = new Cliente();
-            
-            obj.setNome(txtdesc.getText());
-            obj.setEstado(cbfor.getSelectedItem().toString());
+            Produtos obj = new Produtos();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
+            obj.setDescricao(txtdesc.getText());
+            obj.setPreco(Double.parseDouble(txtpreco.getText()));
+            obj.setQtd_estoque(Integer.parseInt(txtestoque.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.alterarCliente(obj);
+            // Cria um objeto de Fornecedor
+            Fornecedores f = new Fornecedores();
+            f=(Fornecedores)cbfor.getSelectedItem();
+            
+            obj.setFornecedor(f);
+            
+            ProdutosDAO dao = new ProdutosDAO();
+            dao.alterarProdutos(obj);
             
             new Utilitarios().LimpaTela(paineldeDados);
             
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro: " + e);
              System.out.println(e);
         }
     }//GEN-LAST:event_btneditarActionPerformed

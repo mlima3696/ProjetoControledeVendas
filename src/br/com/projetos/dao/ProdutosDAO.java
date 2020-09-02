@@ -62,7 +62,7 @@ public class ProdutosDAO {
                 
                 String sql = "select p.id,p.descricao,p.preco,p.qtd_estoque,f.nome from tb_produtos as p "
                         + "inner join tb_fornecedores as f on(p.for_id = f.id)";
-                
+                //2 Passo - conectar o banco de dados e organizar o comando sql
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 
@@ -89,4 +89,45 @@ public class ProdutosDAO {
                 return null;
             }
         }
+        
+        //Metodo Alterar Produtos
+        public void alterarProdutos(Produtos obj){
+            try {
+                
+                String sql = "update tb_produtos set descricao=?, preco=?, qtd_estoque=?,for_id=? where id=?";
+                
+                //2 Passo - conectar o banco de dados e organizar o comando sql
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, obj.getDescricao());
+                pst.setDouble(2, obj.getPreco());
+                pst.setInt(3, obj.getQtd_estoque());
+                
+                pst.setInt(4, obj.getFornecedor().getId());
+                
+                pst.setInt(5, obj.getId());
+                
+                pst.execute();
+                pst.close();
+                
+                JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso! ");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro " + e);
+            }
+        }
+        
+        // Metodo Excluir Produtos
+        public void excluirProdutos(Produtos obj){
+            try {
+                String sql = "delete from tb_produtos where id=?";
+                // 2 passo - conectar o banco de dados e organizar o comando sql
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setInt(1, obj.getId());
+                pst.execute();
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Erro: " + e);
+            }
+        }
+        
 }
