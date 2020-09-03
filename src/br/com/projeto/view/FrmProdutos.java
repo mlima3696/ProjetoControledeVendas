@@ -12,7 +12,6 @@ import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
 import br.com.projetos.dao.FornecedoresDAO;
 import br.com.projetos.dao.ProdutosDAO;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -447,15 +446,16 @@ public class FrmProdutos extends javax.swing.JFrame {
         // botao Excluir
         
          try {
-            Cliente obj = new Cliente();
+            Produtos obj = new Produtos();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
-            dao.excluirCliente(obj);
+            ProdutosDAO dao = new ProdutosDAO();
+            dao.excluirProdutos(obj);
             
              new Utilitarios().LimpaTela(paineldeDados);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro: " + e);
              System.out.println(e);
         }
     }//GEN-LAST:event_btnexcluirActionPerformed
