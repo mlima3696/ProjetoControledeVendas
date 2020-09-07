@@ -152,6 +152,11 @@ public class FrmProdutos extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        cbfor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbforMouseClicked(evt);
+            }
+        });
 
         btnbuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnbuscar.setText("Pesquisar");
@@ -435,10 +440,11 @@ public class FrmProdutos extends javax.swing.JFrame {
             dao.alterarProdutos(obj);
             
             new Utilitarios().LimpaTela(paineldeDados);
+            cbfor.removeAllItems();
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro: " + e);
-             System.out.println(e);
+            System.out.println(e);
         }
     }//GEN-LAST:event_btneditarActionPerformed
 
@@ -454,6 +460,7 @@ public class FrmProdutos extends javax.swing.JFrame {
             dao.excluirProdutos(obj);
             
              new Utilitarios().LimpaTela(paineldeDados);
+             //cbfor.removeAllItems();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro: " + e);
              System.out.println(e);
@@ -464,28 +471,19 @@ public class FrmProdutos extends javax.swing.JFrame {
         // Botao pesquisar
         String nome = "%"+ txtpesquisa.getText()+"%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Cliente> lista = dao.buscaClientePorNome(nome);
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.listarProdutosPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
 
-        for (Cliente c : lista) {
+        for (Produtos c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getEstado()
+                c.getDescricao(),
+                c.getPreco(),
+                c.getQtd_estoque(),
+                c.getFornecedor().getNome(),
         });
         }
     }//GEN-LAST:event_btnpesquisarActionPerformed
@@ -494,28 +492,19 @@ public class FrmProdutos extends javax.swing.JFrame {
         // Vai digitando e já vai mostrando o resultado
         String nome = "%"+ txtpesquisa.getText()+"%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Cliente> lista = dao.buscaClientePorNome(nome);
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.listarProdutosPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
 
-        for (Cliente c : lista) {
+        for (Produtos c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getEstado()
+                c.getDescricao(),
+                c.getPreco(),
+                c.getQtd_estoque(),
+                c.getFornecedor().getNome(),    
         });
         }
     }//GEN-LAST:event_txtpesquisaKeyPressed
@@ -529,19 +518,27 @@ public class FrmProdutos extends javax.swing.JFrame {
         // Botao buscar cliente por nome
 
         String nome = txtdesc.getText();
-        Cliente obj = new Cliente();
-        ClientesDAO dao = new ClientesDAO();
+        Produtos obj = new Produtos();
+        ProdutosDAO dao = new ProdutosDAO();
 
         obj=dao.consultaPorNome(nome);
+        cbfor.removeAllItems();
 
-        if(obj.getNome() != null){
+        if(obj.getDescricao()!= null){
             //Exibir os dados do obj nos campos de texto
             txtcodigo.setText(String.valueOf(obj.getId()));
-
-            txtdesc.setText(obj.getNome());
-            cbfor.setSelectedItem(obj.getEstado());
+            txtdesc.setText(obj.getDescricao());
+            txtpreco.setText(String.valueOf(obj.getPreco()));
+            txtestoque.setText(String.valueOf(obj.getQtd_estoque()));
+            
+            Fornecedores f = new Fornecedores();
+            FornecedoresDAO fdao= new FornecedoresDAO();
+            
+            f=fdao.consultaPorNome(obj.getFornecedor().getNome());
+            
+            cbfor.getModel().setSelectedItem(f);
         }else{
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
         }
     }//GEN-LAST:event_btnbuscarActionPerformed
 
@@ -559,6 +556,17 @@ public class FrmProdutos extends javax.swing.JFrame {
        cbfor.addItem(f);
        }
     }//GEN-LAST:event_cbforAncestorAdded
+
+    private void cbforMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbforMouseClicked
+        // TODO add your handling code here:
+        FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores>listadefornecedores=dao.listarFornecedores();
+        cbfor.removeAllItems();
+        
+        for(Fornecedores f: listadefornecedores){
+            cbfor.addItem(f);
+        }
+    }//GEN-LAST:event_cbforMouseClicked
 
     /**
      * @param args the command line arguments
