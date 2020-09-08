@@ -192,6 +192,42 @@ public class ClientesDAO {
             return null;
         }  
     }
+    
+    //Metodo budcaClientePorCPF
+    public Cliente buscaPorCpf(String cpf){
+        try {
+            String sql = "select * from tb_clientes where cpf=?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, cpf);
+            
+            ResultSet rs = pst.executeQuery();
+            
+             Cliente obj = new Cliente();
+            if(rs.next()){
+                
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
+            }
+            
+            return obj;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+            return null;
+        }  
+    }
    
     //Metodo buscaclientePorNome - retorna uma lista
     public List<Cliente> buscaClientePorNome(String nome) {
