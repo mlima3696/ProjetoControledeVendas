@@ -12,6 +12,9 @@ import br.com.projeto.model.Utilitarios;
 import br.com.projetos.dao.ClientesDAO;
 import br.com.projetos.dao.FornecedoresDAO;
 import br.com.projetos.dao.ProdutosDAO;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -65,7 +68,7 @@ public class FrmVendas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtnome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tatxdata = new javax.swing.JTextField();
+        txtdata = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnbuscarcliente = new javax.swing.JButton();
         txtcpf = new javax.swing.JFormattedTextField();
@@ -145,7 +148,8 @@ public class FrmVendas extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Nome:");
 
-        tatxdata.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtdata.setEditable(false);
+        txtdata.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Data:");
@@ -178,7 +182,7 @@ public class FrmVendas extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tatxdata, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,7 +205,7 @@ public class FrmVendas extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(6, 6, 6))
-                            .addComponent(tatxdata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtdata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -411,8 +415,11 @@ public class FrmVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // Carrega a lista
-        listar();
+        // Carrega a data atual
+        Date agora = new Date();
+        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
+        String dataformatada = dataBr.format(agora);
+        txtdata.setText(dataformatada);
     }//GEN-LAST:event_formWindowActivated
 
     private void btnpagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagActionPerformed
@@ -539,9 +546,9 @@ public class FrmVendas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField tatxdata;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JFormattedTextField txtcpf;
+    private javax.swing.JTextField txtdata;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtpreco;
     private javax.swing.JTextField txtproduto;
