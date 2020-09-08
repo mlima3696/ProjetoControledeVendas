@@ -25,27 +25,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmVendas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmCliente
-     */
-    // Metodo Listar Tabela
-    public void listar(){
-        ProdutosDAO dao = new ProdutosDAO();
-        List<Produtos> lista = dao.listarProdutos();
-        DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
-        dados.setNumRows(0);
-        
-        for(Produtos c: lista){
-        dados.addRow(new Object[]{
-            c.getId(),
-            c.getDescricao(),
-            c.getPreco(),
-            c.getQtd_estoque(),
-            c.getFornecedor(),
-        });
-        }
-    }
+    double total,preco,subtotal;
+    int qtd;
     
+    DefaultTableModel carrinho;
     
     public FrmVendas() {
         initComponents();
@@ -351,7 +334,7 @@ public class FrmVendas extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Total da Venda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        txttotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txttotal.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setText("Total da Venda: ");
@@ -372,7 +355,7 @@ public class FrmVendas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -433,51 +416,13 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnpagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagActionPerformed
-        // botao Editar
-        
-         try {
-            Produtos obj = new Produtos();
-            
-            obj.setId(Integer.parseInt(txtcodigo.getText()));
-            obj.setDescricao(txtdesc.getText());
-            obj.setPreco(Double.parseDouble(txtpreco.getText()));
-            obj.setQtd_estoque(Integer.parseInt(txtestoque.getText()));
-            
-            // Cria um objeto de Fornecedor
-            Fornecedores f = new Fornecedores();
-            f=(Fornecedores)cbfor.getSelectedItem();
-            
-            obj.setFornecedor(f);
-            
-            ProdutosDAO dao = new ProdutosDAO();
-            dao.alterarProdutos(obj);
-            
-            new Utilitarios().LimpaTela(paineldeDados);
-            cbfor.removeAllItems();
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro: " + e);
-            System.out.println(e);
-        }
+       // Botao pagamento
     }//GEN-LAST:event_btnpagActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
-        // botao Excluir
+        // Botao Cancelar-Venda
         
-         try {
-            Produtos obj = new Produtos();
-            
-            obj.setId(Integer.parseInt(txtcodigo.getText()));
-            
-            ProdutosDAO dao = new ProdutosDAO();
-            dao.excluirProdutos(obj);
-            
-             new Utilitarios().LimpaTela(paineldeDados);
-             //cbfor.removeAllItems();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro: " + e);
-             System.out.println(e);
-        }
+        
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void btnbuscarclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarclienteActionPerformed
@@ -505,7 +450,24 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbuscarprodutoActionPerformed
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        // TODO add your handling code here:
+        // Botao AddItem
+        qtd=Integer.parseInt(txtqtd.getText());
+        preco=Double.parseDouble(txtpreco.getText());
+        
+        subtotal=qtd*preco;
+        total+=subtotal;
+        txttotal.setText(String.valueOf(total));
+        
+        //Adicionar o produto do carrinho
+        carrinho=(DefaultTableModel)TabelaItens.getModel();
+        carrinho.addRow(new Object[]{
+        txtcodigo.getText(),
+        txtdescricao.getText(),
+        txtqtd.getText(),
+        txtpreco.getText(),
+        subtotal
+        });
+    
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void txtcpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcpfKeyPressed
