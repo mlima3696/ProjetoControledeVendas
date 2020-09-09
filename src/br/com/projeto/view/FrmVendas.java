@@ -417,10 +417,14 @@ public class FrmVendas extends javax.swing.JFrame {
 
     private void btnpagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagActionPerformed
        // Botao pagamento
+       FrmPagamentos telap = new FrmPagamentos();
+       telap.txttotal.setText(String.valueOf(total));
+       telap.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnpagActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
-        // Botao Cancelar-Venda
+        // Botao Cancelar Venda
         
         
     }//GEN-LAST:event_btncancelarActionPerformed
