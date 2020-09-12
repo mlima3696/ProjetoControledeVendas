@@ -422,6 +422,7 @@ public class FrmVendas extends javax.swing.JFrame {
        telap.txttotal.setText(String.valueOf(total));
        
        telap.cliente=obj;
+       telap.carrinho=carrinho;
        
        telap.setVisible(true);
        this.dispose();
