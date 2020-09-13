@@ -40,7 +40,7 @@ public class ItensVendasDAO {
             pst.execute();
             pst.close();;
             
-            JOptionPane.showMessageDialog(null,"Item de venda registrado com sucesso!");
+            //JOptionPane.showMessageDialog(null,"Item de venda registrado com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }

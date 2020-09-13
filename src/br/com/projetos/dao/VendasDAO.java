@@ -38,7 +38,7 @@ public class VendasDAO {
             pst.execute();
             pst.close();
             
-            JOptionPane.showMessageDialog(null, "Venda registrada com sucesso");
+            //JOptionPane.showMessageDialog(null, "Venda registrada com sucesso");
            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro: " + e);
