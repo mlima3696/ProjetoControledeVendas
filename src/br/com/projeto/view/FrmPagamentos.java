@@ -279,15 +279,23 @@ public class FrmPagamentos extends javax.swing.JFrame {
             qtd_estoque=dao_produto.retornaEstoqueAtual(objp.getId());
             //qtd_comprada=dao_produto.retornaEstoqueAtual(objp.getQtd_estoque());
             qtd_comprada=Integer.parseInt(carrinho.getValueAt(i, 2).toString());
+            
+            if(qtd_estoque>qtd_comprada){
             qtd_atualizada=qtd_estoque-qtd_comprada;
             
             dao_produto.baixaEstoque(objp.getId(), qtd_atualizada);
             
             ItensVendasDAO daoitem=new ItensVendasDAO();
             daoitem.cadastraItens(item);
+            
+            //******************************************************************
+            JOptionPane.showMessageDialog(null, "Venda registrada com sucesso");
+            }else{
+            JOptionPane.showMessageDialog(null, "Quantidade em estoque não disponível!");
+            }
+            
         }
-        //******************************************************************
-        JOptionPane.showMessageDialog(null, "Venda registrada com sucesso");
+      
       
     }//GEN-LAST:event_btnfinalizarActionPerformed
 
