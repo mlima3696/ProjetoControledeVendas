@@ -5,6 +5,13 @@
  */
 package br.com.projeto.view;
 
+import br.com.projeto.model.Vendas;
+import br.com.projetos.dao.VendasDAO;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ACER
@@ -36,7 +43,7 @@ public class FrmHistorico extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnpesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelahistorico = new javax.swing.JTable();
+        tabelaHistorico = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historico de Vendas");
@@ -124,17 +131,18 @@ public class FrmHistorico extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtdatafim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnpesquisar)))
+                        .addComponent(btnpesquisar))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
 
-        tabelahistorico.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -142,7 +150,7 @@ public class FrmHistorico extends javax.swing.JFrame {
                 "Código", "Data da Venda", "Cliente", "Total da Venda", "Obs"
             }
         ));
-        jScrollPane1.setViewportView(tabelahistorico);
+        jScrollPane1.setViewportView(tabelaHistorico);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,8 +190,30 @@ public class FrmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdatafimKeyPressed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-        // Botao buscar cliente por nome
-
+        // Botao buscar venda por periodo
+        
+        //Receber as datas do padrao BR e passar para o padrao Internacional
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        LocalDate data_inicio=LocalDate.parse(txtdatainicio.getText(),formato);
+        LocalDate data_fim=LocalDate.parse(txtdatafim.getText(),formato);
+        
+        VendasDAO  dao = new VendasDAO();
+        List<Vendas> lista=dao.listarVendasporData(data_inicio, data_fim);
+        
+        DefaultTableModel dados=(DefaultTableModel)tabelaHistorico.getModel();
+        dados.setNumRows(0);
+        
+        for (Vendas v : lista) {
+            dados.addRow(new Object[]{
+            v.getId(),
+            v.getData_venda(),
+            v.getCliente().getNome(),
+            v.getTotal_venda(),
+            v.getObs()
+            });
+        }
+        
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
     /**
@@ -229,7 +259,7 @@ public class FrmHistorico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelahistorico;
+    private javax.swing.JTable tabelaHistorico;
     private javax.swing.JFormattedTextField txtdatafim;
     private javax.swing.JFormattedTextField txtdatainicio;
     // End of variables declaration//GEN-END:variables

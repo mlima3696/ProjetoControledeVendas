@@ -11,6 +11,7 @@ import br.com.projeto.model.Vendas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -75,24 +76,27 @@ public class VendasDAO {
     }
     
     // Metodo que filtra Vendas por Datas
-        public List<Vendas>  listarVendasporData(String data_inicio,String data_fim){
+        public List<Vendas>listarVendasporData(LocalDate data_inicio,LocalDate data_fim){
             try {
                 // 1 passo criar a lista
                 List<Vendas> lista = new ArrayList<>();
                 
                 // 2 passo - criar o sql, organizar e executar
                 
-                String sql = "select v.id, v.data_venda, c.nome, v.total_venda, v.observacoes from tb_venda as v " +
+                String sql = "select v.id, v.data_venda, c.nome, v.total_venda, v.observacoes from tb_vendas as v " +
                              " inner join tb_clientes as c on(v.cliente_id = c.id) where v.data_venda between ? and ?";
-                //2 Passo - conectar o banco de dados e organizar o comando sql
+                //3 Passo - conectar o banco de dados e organizar o comando sql
                 PreparedStatement pst = con.prepareStatement(sql);
+                
+                pst.setString(1, data_inicio.toString());
+                pst.setString(2, data_fim.toString());
+                
                 ResultSet rs = pst.executeQuery();
                 
-                pst.setString(1, data_inicio);
-                pst.setString(2, data_fim);
+               
                 
                 while(rs.next()){
-                Vendas obj = new Vendas();
+                Vendas obj= new Vendas();
                 Cliente c= new Cliente();
                 
                 obj.setId(rs.getInt("v.id"));
