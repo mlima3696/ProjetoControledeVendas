@@ -10,6 +10,7 @@ import br.com.projetos.dao.VendasDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -193,6 +194,8 @@ public class FrmHistorico extends javax.swing.JFrame {
         // Botao buscar venda por periodo
         
         //Receber as datas do padrao BR e passar para o padrao Internacional
+        
+        try {      
         DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         LocalDate data_inicio=LocalDate.parse(txtdatainicio.getText(),formato);
@@ -214,6 +217,11 @@ public class FrmHistorico extends javax.swing.JFrame {
             });
         }
         
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado!");
+            System.out.println("Erro: " + e);
+        }
+      
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
     /**
