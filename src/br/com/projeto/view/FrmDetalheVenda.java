@@ -39,14 +39,14 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txtdata = new javax.swing.JFormattedTextField();
+        txtdatavenda = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txttotal = new javax.swing.JTextField();
+        txttotalvenda = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtobs = new javax.swing.JTextArea();
+        txtobsvenda = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaDetalheVenda = new javax.swing.JTable();
 
@@ -81,16 +81,16 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Cliente");
 
-        txtdata.setEditable(false);
+        txtdatavenda.setEditable(false);
         try {
-            txtdata.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtdatavenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtdata.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtdata.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtdatavenda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtdatavenda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtdataKeyPressed(evt);
+                txtdatavendaKeyPressed(evt);
             }
         });
 
@@ -98,43 +98,47 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         jLabel8.setText("Data ");
 
         txtCliente.setEditable(false);
+        txtCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Total da Venda");
 
-        txttotal.setEditable(false);
+        txttotalvenda.setEditable(false);
+        txttotalvenda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Observações");
 
-        txtobs.setEditable(false);
-        txtobs.setColumns(20);
-        txtobs.setRows(5);
-        jScrollPane2.setViewportView(txtobs);
+        txtobsvenda.setEditable(false);
+        txtobsvenda.setColumns(20);
+        txtobsvenda.setRows(5);
+        jScrollPane2.setViewportView(txtobsvenda);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)))
+                        .addComponent(jScrollPane2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtdatavenda, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txttotalvenda, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(46, 46, 46))
         );
         jPanel2Layout.setVerticalGroup(
@@ -145,11 +149,11 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotalvenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtdatavenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -167,6 +171,11 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
                 "Código", "Produto", "Qtd Comprada", "Valor", "SubTotal"
             }
         ));
+        tabelaDetalheVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaDetalheVendaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaDetalheVenda);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,7 +198,7 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -197,9 +206,13 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtdataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdataKeyPressed
+    private void txtdatavendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdatavendaKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtdataKeyPressed
+    }//GEN-LAST:event_txtdatavendaKeyPressed
+
+    private void tabelaDetalheVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDetalheVendaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaDetalheVendaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -244,13 +257,13 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelaDetalheVenda;
-    private javax.swing.JTextField txtCliente;
-    private javax.swing.JFormattedTextField txtdata;
-    private javax.swing.JTextArea txtobs;
-    private javax.swing.JTextField txttotal;
+    public javax.swing.JTextField txtCliente;
+    public javax.swing.JFormattedTextField txtdatavenda;
+    public javax.swing.JTextArea txtobsvenda;
+    public javax.swing.JTextField txttotalvenda;
     // End of variables declaration//GEN-END:variables
 }

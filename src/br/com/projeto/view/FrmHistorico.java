@@ -151,6 +151,11 @@ public class FrmHistorico extends javax.swing.JFrame {
                 "Código", "Data da Venda", "Cliente", "Total da Venda", "Obs"
             }
         ));
+        tabelaHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaHistoricoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaHistorico);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,6 +228,16 @@ public class FrmHistorico extends javax.swing.JFrame {
         }
       
     }//GEN-LAST:event_btnpesquisarActionPerformed
+
+    private void tabelaHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoMouseClicked
+        // Clicar rm uma venda
+        FrmDetalheVenda tela=new FrmDetalheVenda();
+        tela.txtCliente.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 2).toString()));
+        tela.txttotalvenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 3).toString()));
+        tela.txtdatavenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 1).toString()));
+        tela.txtobsvenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 4).toString()));
+        tela.setVisible(true);
+    }//GEN-LAST:event_tabelaHistoricoMouseClicked
 
     /**
      * @param args the command line arguments
