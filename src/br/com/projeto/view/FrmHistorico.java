@@ -5,7 +5,9 @@
  */
 package br.com.projeto.view;
 
+import br.com.projeto.model.ItemVendas;
 import br.com.projeto.model.Vendas;
+import br.com.projetos.dao.ItensVendasDAO;
 import br.com.projetos.dao.VendasDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -230,12 +232,32 @@ public class FrmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
     private void tabelaHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoMouseClicked
-        // Clicar rm uma venda
+        // Clicar em uma venda
         FrmDetalheVenda tela=new FrmDetalheVenda();
         tela.txtCliente.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 2).toString()));
         tela.txttotalvenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 3).toString()));
         tela.txtdatavenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 1).toString()));
         tela.txtobsvenda.setText((tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 4).toString()));
+        
+        int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(),0).toString());
+        
+        // Dados dos Itens comprados
+        ItemVendas item = new ItemVendas();
+        ItensVendasDAO dao_item = new ItensVendasDAO();
+        List<ItemVendas> listaitens = dao_item.listarItensPorVenda(venda_id);
+        
+        DefaultTableModel dados =  (DefaultTableModel) tela.tabelaDetalheVenda.getModel();
+        dados.setNumRows(0);
+        
+        for (ItemVendas p : listaitens) {
+            dados.addRow(new Object[]{
+                p.getId(),
+                p.getProduto().getDescricao(),
+                p.getQtd(),
+                p.getProduto().getPreco(),
+                p.getSubtotal()
+            });
+        }
         tela.setVisible(true);
     }//GEN-LAST:event_tabelaHistoricoMouseClicked
 

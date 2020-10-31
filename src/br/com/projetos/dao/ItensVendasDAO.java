@@ -78,7 +78,7 @@ public class ItensVendasDAO {
                 prod.setDescricao(rs.getString("p.descricao"));
                 item.setQtd(rs.getInt("i.qtd"));
                 prod.setPreco(rs.getDouble("p.preco"));
-                item.setSubtotal(rs.getInt("i.subtotal"));
+                item.setSubtotal(rs.getDouble("i.subtotal"));
                 
                 item.setProduto(prod);
                 
