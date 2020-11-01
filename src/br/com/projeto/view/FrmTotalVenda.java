@@ -163,7 +163,7 @@ public class FrmTotalVenda extends javax.swing.JFrame {
         // Botao calcular total de venda por data
         try {
             // Recebe a data
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/git MM/yyyy");
             LocalDate data_venda = LocalDate.parse(txtdatavenda.getText(), formato);
 
             double total_venda;
