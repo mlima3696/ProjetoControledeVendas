@@ -8,6 +8,7 @@ package br.com.projeto.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,7 +57,7 @@ public class FrmMenu extends javax.swing.JFrame {
         menu_posicao = new javax.swing.JMenuItem();
         menu_controlevendas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        MenuTrocaUsuario = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -83,7 +84,7 @@ public class FrmMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(33, 33, 33)
                 .addComponent(lblusuario)
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addContainerGap(571, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,13 +167,23 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/configuracoes.png"))); // NOI18N
         jMenu3.setText("Configurações");
 
-        jMenuItem9.setText("Trocar de Usuário");
-        jMenu3.add(jMenuItem9);
+        MenuTrocaUsuario.setText("Trocar de Usuário");
+        MenuTrocaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuTrocaUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuTrocaUsuario);
 
         jMenuBar1.add(jMenu3);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
         jMenu5.setText("Sair");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -198,6 +209,22 @@ public class FrmMenu extends javax.swing.JFrame {
         lblusuario.setText(usuariologado);
         this.setVisible(true);
     }//GEN-LAST:event_formWindowActivated
+
+    private void MenuTrocaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTrocaUsuarioActionPerformed
+        //Efetuar logout 
+        FrmLogin telalogin = new FrmLogin();
+        this.dispose();
+        telalogin.setVisible(true);
+    }//GEN-LAST:event_MenuTrocaUsuarioActionPerformed
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        int opt;
+        opt=JOptionPane.showConfirmDialog(null, "Você realmente deseja sair!");
+        if(opt==0){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -237,6 +264,7 @@ public class FrmMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Clientes;
     private javax.swing.JMenu Funcionários;
+    private javax.swing.JMenuItem MenuTrocaUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -250,7 +278,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblusuario;
     public javax.swing.JMenuItem menu_controlevendas;
