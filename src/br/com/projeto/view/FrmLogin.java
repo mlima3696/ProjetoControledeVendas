@@ -40,7 +40,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnsair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Bem Vindo ao Sistema - Autenticação");
+        setTitle("Tela de Login");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
@@ -86,6 +86,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btnsair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,6 +158,15 @@ public class FrmLogin extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        // TODO add your handling code here:
+        int opt;
+        opt = JOptionPane.showConfirmDialog(null, "Você realmente deseja sair!");
+        if (opt == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnsairActionPerformed
 
     /**
      * @param args the command line arguments
