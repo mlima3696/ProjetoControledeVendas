@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ACER
  */
 public class FrmEstoque extends javax.swing.JFrame {
-    
+    int idproduto, qtd_nova;
      public void listar(){
         ProdutosDAO dao = new ProdutosDAO();
         List<Produtos> lista = dao.listarProdutos();
@@ -236,9 +236,10 @@ public class FrmEstoque extends javax.swing.JFrame {
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
           // Botao pesquisar
-        String nome = "%"+ btnpesquisar.getText()+"%";
+        String nome = "%"+ txtdescricao.getText()+"%";
 
         ProdutosDAO dao = new ProdutosDAO();
+        
         List<Produtos> lista = dao.listarProdutosPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaListaProdutos.getModel();
@@ -257,6 +258,24 @@ public class FrmEstoque extends javax.swing.JFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
+        try {
+            int qtd_estoque,qtd;
+            
+            qtd_estoque=Integer.parseInt(txtestoquea.getText());
+            
+            qtd=Integer.parseInt(txtqtd.getText());
+            
+            qtd_nova=qtd_estoque+qtd;
+            
+            ProdutosDAO dao = new ProdutosDAO();
+            
+            dao.adicionarEstoque(idproduto, qtd_nova);
+            
+            JOptionPane.showMessageDialog(null, "Estoque do produto Atualizado!");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Selecione o produto ou informe a nova quantidade " + e);
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -266,8 +285,9 @@ public class FrmEstoque extends javax.swing.JFrame {
 
     private void tabelaListaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaListaProdutosMouseClicked
         // TODO add your handling code here:
-        
-         txtestoquea.setText(tabelaListaProdutos.getValueAt(tabelaListaProdutos.getSelectedRow(), 3).toString());
+        idproduto = Integer.parseInt(tabelaListaProdutos.getValueAt(tabelaListaProdutos.getSelectedRow(), 0).toString());
+        txtdescricao.setText(tabelaListaProdutos.getValueAt(tabelaListaProdutos.getSelectedRow(), 1).toString());
+        txtestoquea.setText(tabelaListaProdutos.getValueAt(tabelaListaProdutos.getSelectedRow(), 3).toString());
     }//GEN-LAST:event_tabelaListaProdutosMouseClicked
 
     /**

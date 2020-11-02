@@ -280,4 +280,21 @@ public class ProdutosDAO {
             }
         }
         
+        public void adicionarEstoque(int id, int qtd_novo){
+            try {
+                String sql = "update tb_produtos set qtd_estoque= ? where id=?";
+                
+                PreparedStatement pst = con.prepareStatement(sql);
+                
+                pst.setInt(1, qtd_novo);
+                pst.setInt(2, id);
+                pst.execute();
+                pst.close();
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Aconteceu um ERRO: " + e);
+                System.out.println(e);
+            }
+        }
+        
 }
